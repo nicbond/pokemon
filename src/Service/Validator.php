@@ -6,7 +6,7 @@ use Symfony\Component\HttpFoundation\Response;
 
 class Validator
 {
-    public function validatorFile($file, $request): array
+    public function validatorFile($file): array
     {
         $data = array();
         $fileExtension = '';

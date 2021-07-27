@@ -33,7 +33,7 @@ class UploadFileController extends AbstractController
         $file = $request->files->get('attachment');
 
         //Vérification du format du fichier autorisé et retour des erreurs éventuelles
-        $key = $validator->validatorFile($file, $request);
+        $key = $validator->validatorFile($file);
 
         //Nouveau nom du fichier avec la date du jour
         $extensionFile = $key['extensionFile'];
