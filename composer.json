@@ -8,6 +8,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "doctrine/doctrine-bundle": "^2.4",
+        "doctrine/doctrine-migrations-bundle": "^3.0",
         "doctrine/migrations": "^3.2",
         "doctrine/orm": "^2.9",
         "symfony/console": "5.3.*",
