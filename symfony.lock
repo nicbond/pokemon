@@ -114,7 +114,13 @@
     "symfony/http-kernel": {
         "version": "v5.3.5"
     },
+    "symfony/mime": {
+        "version": "v5.3.4"
+    },
     "symfony/polyfill-intl-grapheme": {
+        "version": "v1.23.0"
+    },
+    "symfony/polyfill-intl-idn": {
         "version": "v1.23.0"
     },
     "symfony/polyfill-intl-normalizer": {
