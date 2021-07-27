@@ -72,6 +72,11 @@ class Pokemon
      */
     private $legendary;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $generation;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -205,6 +210,18 @@ class Pokemon
     public function setLegendary(?bool $legendary): self
     {
         $this->legendary = $legendary;
+
+        return $this;
+    }
+
+    public function getGeneration(): ?int
+    {
+        return $this->generation;
+    }
+
+    public function setGeneration(int $generation): self
+    {
+        $this->generation = $generation;
 
         return $this;
     }
