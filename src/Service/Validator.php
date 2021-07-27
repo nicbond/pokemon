@@ -26,4 +26,13 @@ class Validator
         }
         return $data;
     }
+
+    public function fileExist($file)
+    {
+        if (!file_exists($file)) {
+            throw new \Exception('The file mentionned does not exist', Response::HTTP_UNPROCESSABLE_ENTITY);
+        } else {
+            return true;
+        }
+    }
 }
