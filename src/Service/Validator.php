@@ -2,10 +2,24 @@
 
 namespace App\Service;
 
+use Symfony\Component\Validator\Validator\ValidatorInterface;
+use App\Entity\Pokemon;
 use Symfony\Component\HttpFoundation\Response;
 
 class Validator
 {
+    /**
+     * @var ValidatorInterface
+     */
+    private $validator;
+
+    public function __construct(
+        ValidatorInterface $validator
+    )
+    {
+        $this->validator = $validator;
+    }
+
     public function validatorFile($file): array
     {
         $data = array();
@@ -33,6 +47,20 @@ class Validator
             throw new \Exception('The file mentionned does not exist', Response::HTTP_UNPROCESSABLE_ENTITY);
         } else {
             return true;
+        }
+    }
+
+    public function validatorData(Pokemon $pokemon)
+    {
+        $violations = $this->validator->validate($pokemon);
+
+        if (count($violations)) {
+            $message = 'Invalid data. Here are the errors you need to correct: ' .'</br>';
+            foreach ($violations as $violation) {
+                $message .= sprintf("Field %s: %s ", $violation->getPropertyPath(), $violation->getMessage());
+                $message .= '</br>';
+            }
+            throw new \Exception($message);
         }
     }
 }
