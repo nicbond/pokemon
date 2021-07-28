@@ -130,7 +130,6 @@ class ReadCSV extends Command
 
                         //Contrôle des données avant intégration en base de données
                         $this->validator->validatorData($pokemonAlreadyExist);
-                        $this->entityManager->persist($pokemonAlreadyExist);
                     }
                     $this->entityManager->flush();
                 } catch (\Doctrine\ORM\ORMException $e) {
