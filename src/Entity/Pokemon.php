@@ -4,10 +4,22 @@ namespace App\Entity;
 
 use App\Repository\PokemonRepository;
 use Doctrine\ORM\Mapping as ORM;
+use ApiPlatform\Core\Annotation\ApiResource;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  */
+#[ApiResource(
+    normalizationContext: ['groups' => ['read:collection']],
+    itemOperations: [
+        'put',
+        'delete',
+        'get' => [
+            'normalization_context' => ['groups' => ['read:collection', 'read:item']]
+        ]
+    ]
+)]
 class Pokemon
 {
     /**
@@ -15,66 +27,79 @@ class Pokemon
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $type1;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
+    #[Groups(['read:collection', 'read:item'])]
     private $type2;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $total;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $hp;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $attack;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $defense;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $sp_atk;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $sp_def;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $speed;
 
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
+    #[Groups(['read:item'])]
     private $legendary;
 
     /**
      * @ORM\Column(type="integer")
      */
+    #[Groups(['read:item'])]
     private $generation;
 
     public function getId(): ?int
