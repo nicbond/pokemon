@@ -8,10 +8,40 @@ use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Validator\Constraints as Assert;
+use ApiPlatform\Core\Annotation\ApiResource;
+use ApiPlatform\Core\Action\NotFoundAction;
+use App\Controller\MeController;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
- * @UniqueEntity(fields={"email"}, message="There is already an account with this email") 
+ * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
+ * @ApiResource(
+ *     attributes={"security"="is_granted('ROLE_USER')"},
+ *     collectionOperations={
+ *          "me"={
+ *              "pagination_enabled"=false,
+ *              "path"="/me",
+ *              "method"="GET",
+ *              "controller"=MeController::class,
+ *              "read"=false,
+ *              "openapi_context"={
+ *                  "security"={{"cookieAuth"={"[]"}}}
+ *              }
+ *          }
+ *     },
+ *     itemOperations={
+ *          "get"={
+ *              "controller"=NotFoundAction::class,
+ *              "openapi_context"={
+ *                  "summary"="hidden"
+ *              },
+ *              "read"=false,
+ *              "output"=false
+ *          }
+ *     },
+ *     normalizationContext={"groups"={"read:User"}}
+ * ) 
  */
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -19,6 +49,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      * @ORM\Column(type="integer")
+     * @Groups("read:User")
      */
     private $id;
 
@@ -28,11 +59,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      * @Assert\Email(
      *     message = "The email '{{ value }}' is not a valid email."
      * )
+     * @Groups("read:User")
      */
     private $email;
 
     /**
      * @ORM\Column(type="json")
+     * @Groups("read:User")
      */
     private $roles = [];
 
