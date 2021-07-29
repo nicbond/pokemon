@@ -12,6 +12,9 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 #[ApiResource(
     normalizationContext: ['groups' => ['read:collection']],
+    paginationItemsPerPage: 50,
+    paginationMaximumItemsPerPage: 50,
+    paginationClientItemsPerPage: true,
     itemOperations: [
         'put',
         'delete',
