@@ -12,6 +12,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Action\NotFoundAction;
 use App\Controller\MeController;
 use Symfony\Component\Serializer\Annotation\Groups;
+use Lexik\Bundle\JWTAuthenticationBundle\Security\User\JWTUserInterface;
 
 /**
  * @ORM\Entity(repositoryClass=UserRepository::class)
@@ -26,7 +27,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *              "controller"=MeController::class,
  *              "read"=false,
  *              "openapi_context"={
- *                  "security"={{"cookieAuth"={"[]"}}}
+ *                  "security"={{"bearerAuth"={"[]"}}}
  *              }
  *          }
  *     },
@@ -43,7 +44,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
  *     normalizationContext={"groups"={"read:User"}}
  * ) 
  */
-class User implements UserInterface, PasswordAuthenticatedUserInterface
+class User implements UserInterface, PasswordAuthenticatedUserInterface, JWTUserInterface
 {
     /**
      * @ORM\Id
@@ -81,6 +82,13 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): self
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -165,5 +173,10 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    public static function createFromPayload($id, array $payload)
+    {
+        return (new User())->setId($id)->setEmail($payload['username'] ?? '');
     }
 }
