@@ -25,11 +25,4 @@ class PokemonController extends AbstractController
         $this->repository = $repository;
         $this->serializer = $serializer;
     }
-
-    #[Route('/api/pokemon', name: 'api_pokemon_get_collection')]
-    public function index()
-    {
-        $pokemons = $this->repository->findAll();
-        return $pokemons;
-    }
 }
