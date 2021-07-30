@@ -8,6 +8,7 @@ use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
+use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
@@ -25,7 +26,8 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
         ]
     ]
 )]
-#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial', 'type1' => 'exact', 'generation' => 'exact', 'legendary' => 'exact'])]
+#[ApiFilter(SearchFilter::class, properties: ['name' => 'partial', 'type1' => 'exact', 'generation' => 'exact'])]
+#[ApiFilter(BooleanFilter::class, properties: ['legendary' => 'exact'])]
 class Pokemon
 {
     /**
