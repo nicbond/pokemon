@@ -32,15 +32,4 @@ class PokemonController extends AbstractController
         $pokemons = $this->repository->findAll();
         return $pokemons;
     }
-
-    #[Route('/api/pokemon/{id}', name: 'api_pokemon_get_item')]
-    public function show($id)
-    {
-        $pokemon = $this->repository->find($id);
-
-        if (empty($pokemon)){
-            throw new \Exception('The resource does not exist', Response::HTTP_BAD_REQUEST);
-        }
-        return $pokemon;
-    }
 }
