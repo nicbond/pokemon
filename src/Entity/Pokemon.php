@@ -20,7 +20,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
     paginationMaximumItemsPerPage: 50,
     paginationClientItemsPerPage: true,
     itemOperations: [
-        'put',
+        'put' => [
+            'openapi_context' => [
+                'security' => [['bearerAuth' => []]]
+            ]
+        ],
         'delete' => [
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
