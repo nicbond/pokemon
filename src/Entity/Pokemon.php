@@ -14,13 +14,18 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  */
 #[ApiResource(
+    security: 'is_granted("ROLE_USER")',
     normalizationContext: ['groups' => ['read:collection']],
     paginationItemsPerPage: 50,
     paginationMaximumItemsPerPage: 50,
     paginationClientItemsPerPage: true,
     itemOperations: [
         'put',
-        'delete',
+        'delete' => [
+            'openapi_context' => [
+                'security' => [['bearerAuth' => []]]
+            ]
+        ],
         'get' => [
             'normalization_context' => ['groups' => ['read:collection', 'read:item']]
         ]
