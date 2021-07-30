@@ -25,6 +25,11 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
                 'security' => [['bearerAuth' => []]]
             ]
         ],
+        'patch' => [
+            'openapi_context' => [
+                'security' => [['bearerAuth' => []]]
+            ]
+        ],
         'delete' => [
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
