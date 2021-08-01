@@ -9,6 +9,7 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
+use App\Controller\DeletePokemonController;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
@@ -32,6 +33,9 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
             ]
         ],
         'delete' => [
+            'path' => '/pokemon/{id}',
+            'method' => 'DELETE',
+            'controller' => DeletePokemonController::class,
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
             ]
