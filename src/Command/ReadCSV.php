@@ -86,9 +86,9 @@ class ReadCSV extends Command
                 $legendary = trim($line[12]);
 
                 if ($legendary == 'False') {
-                    $legendary = 0;
+                    $legendary = false;
                 } else {
-                    $legendary = 1;
+                    $legendary = true;
                 }
                 $pokemonSearch = $this->repository->findOneBy(array('name' => $name));
 
