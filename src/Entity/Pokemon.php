@@ -14,6 +14,7 @@ use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  */
 #[ApiResource(
+    collectionOperations: ['get'],
     security: 'is_granted("ROLE_USER")',
     normalizationContext: ['groups' => ['read:collection']],
     paginationItemsPerPage: 50,
