@@ -21,8 +21,9 @@ class DeletePokemonController extends AbstractController
     public function __invoke(Request $request)
     {
         $id = $request->get('id');
+        $data = [];
         $method = 'DELETE';
 
-        $this->pokemonAction->process($id, $method);
+        $this->pokemonAction->process($id, $method, $data);
     }
 }
