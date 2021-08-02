@@ -23,11 +23,6 @@ use App\Controller\DeletePokemonController;
     paginationMaximumItemsPerPage: 50,
     paginationClientItemsPerPage: true,
     itemOperations: [
-        'put' => [
-            'openapi_context' => [
-                'security' => [['bearerAuth' => []]]
-            ]
-        ],
         'patch' => [
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
