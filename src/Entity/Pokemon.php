@@ -10,6 +10,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
 use App\Controller\DeletePokemonController;
+use App\Controller\PutPokemonController;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
@@ -23,7 +24,10 @@ use App\Controller\DeletePokemonController;
     paginationMaximumItemsPerPage: 50,
     paginationClientItemsPerPage: true,
     itemOperations: [
-        'patch' => [
+        'put' => [
+            'path' => '/pokemon/{id}',
+            'method' => 'PUT',
+            'controller' => PutPokemonController::class,
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
             ]
