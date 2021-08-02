@@ -18,6 +18,7 @@ use App\Controller\DeletePokemonController;
     collectionOperations: ['get'],
     security: 'is_granted("ROLE_USER")',
     normalizationContext: ['groups' => ['read:collection']],
+    denormalizationContext: ['groups' => ['write:Pokemon']],
     paginationItemsPerPage: 50,
     paginationMaximumItemsPerPage: 50,
     paginationClientItemsPerPage: true,
@@ -60,13 +61,13 @@ class Pokemon
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(['read:collection', 'read:item'])]
+    #[Groups(['read:collection', 'read:item', 'write:Pokemon'])]
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
-    #[Groups(['read:collection', 'read:item'])]
+    #[Groups(['read:collection', 'read:item', 'write:Pokemon'])]
     private $type1;
 
     /**
@@ -120,13 +121,13 @@ class Pokemon
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    #[Groups(['read:item'])]
+    #[Groups(['read:item', 'write:Pokemon'])]
     private $legendary;
 
     /**
      * @ORM\Column(type="integer")
      */
-    #[Groups(['read:item'])]
+    #[Groups(['read:item', 'write:Pokemon'])]
     private $generation;
 
     public function getId(): ?int
