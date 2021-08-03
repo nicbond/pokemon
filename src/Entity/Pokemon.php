@@ -120,7 +120,7 @@ class Pokemon
     /**
      * @ORM\Column(type="boolean", options={"default":false})
      */
-    #[Groups(['read:item', 'write:Pokemon'])]
+    #[Groups(['read:collection', 'read:item', 'write:Pokemon'])]
     private $legendary;
 
     /**
