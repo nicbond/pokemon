@@ -8,7 +8,6 @@ use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\KernelEvents;
-//use Symfony\Component\Security\Core\Security;
 use App\Repository\PokemonRepository;
 use App\Entity\Pokemon;
 
