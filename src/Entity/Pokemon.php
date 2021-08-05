@@ -9,15 +9,12 @@ use ApiPlatform\Core\Annotation\ApiFilter;
 use Symfony\Component\Serializer\Annotation\Groups;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\BooleanFilter;
-use App\Controller\DeletePokemonController;
-use App\Controller\PutPokemonController;
 
 /**
  * @ORM\Entity(repositoryClass=PokemonRepository::class)
  */
 #[ApiResource(
     collectionOperations: ['get'],
-    security: 'is_granted("ROLE_USER")',
     normalizationContext: ['groups' => ['read:collection']],
     denormalizationContext: ['groups' => ['write:Pokemon']],
     paginationItemsPerPage: 50,
@@ -25,17 +22,17 @@ use App\Controller\PutPokemonController;
     paginationClientItemsPerPage: true,
     itemOperations: [
         'put' => [
+            'security' => 'is_granted("ROLE_USER")',
             'path' => '/pokemon/{id}',
             'method' => 'PUT',
-            'controller' => PutPokemonController::class,
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
             ]
         ],
         'delete' => [
+            'security' => 'is_granted("ROLE_USER")',
             'path' => '/pokemon/{id}',
             'method' => 'DELETE',
-            'controller' => DeletePokemonController::class,
             'openapi_context' => [
                 'security' => [['bearerAuth' => []]]
             ]
