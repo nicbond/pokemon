@@ -1,9 +1,9 @@
 ### Test Technique Symfony / PHP (API Platform)
 
-Stack technique: PHP 8.0.8 / Symfony 5.3
+Stack technique: PHP 8.0.8 / Symfony 5.3.5
 
 Après avoir cloné le projet en local, il faudra exécuter les commandes suivantes:
- - composer install
+ - composer install.
 Définir le nom de votre base de données dans le fichier .env.local puis
  - php bin/console doctrine:database:create
  - php bin/console doctrine:schema:update --dump-sql
@@ -15,10 +15,10 @@ Pour la création des clés JWT:
 ### POSTMAN
 
 Pour commencer le test technique, j'ai voulu créer un micro service permettant l'upload d'un fichier CSV via postman.
-L'URL est disponible à cette adresse: http://127.0.0.1:8000/upload
+L'URL est disponible à cette adresse: http://127.0.0.1:8000/upload.
 Deux vérifications seront effectuées:
  - si aucun fichier n'a été uploadé
- - seuls les fichiers CSV pourront être uploadés
+ - seuls les fichiers CSV pourront être uploadés.
 Dès que le fichier est uploadé, celui-ci est renommé avec la date du jour au format Y-m-d et est stocké dans /public/uploads/CSV
 
 ### CRON
@@ -37,17 +37,18 @@ Pour lancer le cron, il faudra taper la commande suivante:
 ### Inscription:
 
 Pour procéder à l'inscription d'un utilisateur sur l'API, j'ai tout d'abord créer une entité user par le biais de la commande suivante:
-``$ php bin/console make:user
+``$ php bin/console make:user.
 Grâce à cette commande, l'entité User aura les propriétés suivantes par défaut:
 - email
 - roles
-- password
+- password.
+
 Ensuite, afin de respecter les différentes contraintes liées à l'inscription d'un utilisateur à l'API, j'ai réussi à mettre en place la gestion des erreurs suivantes:
  - Email doit être un champ unique via une annotation dans l'entité User
  - le champ Email doit être valide grâce à l'annotation @Assert\Email
  - un message d'erreur: Your password must contain at least one uppercase, one lowercase, a special character and be at least 8 characters long grâce à la mise en place d'une regex
- - les champs email et password sont requis
-L'URL est disponible à cette adresse: http://127.0.0.1:8000/api/registration
+ - les champs email et password sont requis.
+L'URL est disponible à cette adresse: http://127.0.0.1:8000/api/registration .
 Dernière chose, lors de l'inscription, le mot de passe est bien évidemment encodé dans la base de données.
 
 ### Connexion:
@@ -88,11 +89,11 @@ A partir de l'id, j'effectue d'abord une requête afin de savoir si c'est un pok
 
 Pour l'update, on ne peut pas updater un pokémon légendaire.
 Dans le cas contraire, l'édition fonctionne et on ne peut pas éditer un type qui n'existe pas en base de données.
-Cependant, si je souhaite qu'un pokémon non légendaire devienne légendaire, j'ai une erreur dûe à un persist que fait API Platform qui a pour incidence de m'empêcher d'éditer le pokémon en question.
+
+Que ce soit pour l'Update ou le Delete d'un pokémon, j'ai mis en place un DataPersister et pour ce qui est de la vérification à savoir est que le pokémon que je souhaite updaté / supprimé est-il légendaire?
+C'est le UpdatePokemonSubscriber qui s'en occupe en écoutant l'évent PRE_WRITE.
 
 ## Axes d'amélioration:
 
 - PHP 8 (maitriser la nouvelle syntaxe)
 - API Platform (en cours d'auto-formation)
-- Améliorer la partie édition d'un pokémon et résoudre cette histoire de persist (semblable à un prépersist)
-- Ajouter un DataPersister gérant la suppression et l'édition d'un pokémon
